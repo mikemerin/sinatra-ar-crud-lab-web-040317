@@ -7,7 +7,57 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
-  get '/' do 
-    
+  get '/' do
+    redirect to '/posts'
   end
+
+  get '/posts' do
+    @posts = Post.all
+    erb :index
+  end
+
+  get '/posts/new' do
+    erb :new
+  end
+
+  post '/posts' do
+    Post.create(params)
+    redirect to '/posts'
+    # it'd be better to:
+    # @post = Post.create(params)
+    # redirect to "/posts/#{@post.id}"
+  end
+
+  get '/posts/:id' do
+    @post = Post.find_by(id: params[:id])
+    erb :show
+  end
+
+  get '/posts/:id/edit' do
+    @post = Post.find_by(id: params[:id])
+    erb :edit
+  end
+
+  patch '/posts/:id' do
+    @post = Post.find_by(id: params[:id])
+    @post.name = params[:name]
+    @post.content = params[:content]
+    @post.save
+    redirect to "/posts/#{@post.id}"
+  end
+
+  # confirmation page, better than just an instant deletion
+  # can also use a JS pop-up to confirm
+
+  get '/posts/:id/delete' do
+    @post = Post.find_by(id: params[:id])
+    erb :delete
+  end
+
+  delete '/posts/:id/delete' do
+    @post = Post.find_by(id: params[:id])
+    @post.delete
+    redirect to "/posts"
+  end
+
 end

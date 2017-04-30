@@ -1,0 +1,6 @@
+<h1>Post #<%= @post.id %> by <%= @post.name %></h1>
+<p><%= @post.content %></p><br>
+
+<a href="/posts/<%= @post.id %>/edit">Edit this post</a><br>
+<a href="/posts/<%= @post.id %>/delete">Delete this post (warning, permanent)</a><br>
+<a href="/posts">See all posts</a>

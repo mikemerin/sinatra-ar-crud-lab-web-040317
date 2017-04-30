@@ -1,0 +1,13 @@
+<h1>Delete your post?</h1>
+
+<h1>Post #<%= @post.id %> by <%= @post.name %></h1>
+<p><%= @post.content %></p><br>
+
+<form method="post" action="/posts/<%= @post.id %>/delete" >
+<input type="hidden" name="_method" value="delete" id="hidden">
+
+  <input type="submit" value="delete" >
+
+</form>
+
+<a href="/posts">Return to all posts without deleting this one</a>
